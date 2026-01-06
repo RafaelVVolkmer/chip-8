@@ -112,14 +112,14 @@ op_invalid(Chip8 *c8, uint16_t op)
 
 // CLS
 static inline void
-op_00e0(Chip8 *c8, uint16_t op)
+op_00e0(Chip8 *c8, uint16_t op __attribute__((unused)))
 {
 	memset(c8->disp.pixels, 0, sizeof c8->disp.pixels);
 }
 
 // RET
 static inline void
-op_00ee(Chip8 *c8, uint16_t op)
+op_00ee(Chip8 *c8, uint16_t op __attribute__((unused)))
 {
 	if (c8->sp == 0) {
 		return;
