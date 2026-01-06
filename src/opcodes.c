@@ -100,7 +100,10 @@ static Chip8Op tableF[256] = {
 static inline void
 op_invalid(Chip8 *c8, uint16_t op)
 {
-	fprintf(stderr, "Invalid op %04X at PC=%04X\n", op, c8->pc - 2);
+	fprintf(stderr,
+		"Invalid op %04X at PC=%04X\n",
+		(unsigned int)op,
+		(unsigned int)((uint16_t)(c8->pc - 2u)));
 }
 
 /* ============================================================
