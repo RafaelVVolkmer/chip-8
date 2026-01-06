@@ -17,7 +17,7 @@ void
 chip8_cycle(Chip8 *c8)
 {
 	const uint16_t opcode = chip8_fetch(c8);
-	c8->pc += 2;
+	c8->pc = (uint16_t)(c8->pc + 2u);
 	dispatch(c8, opcode);
 }
 
