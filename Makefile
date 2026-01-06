@@ -18,8 +18,19 @@ all: sdl
 build: CFLAGS += -DHEADLESS
 build: prepare clean_objs $(TARGET)
 
-sdl: CFLAGS += -DUSE_SDL
-sdl: LDFLAGS += $(SDL_LIBS)
+# OS-specific flags for SDL
+ifeq ($(shell uname), Darwin)
+    # macOS and Homebrew
+    SDL_CFLAGS := -I$(shell brew --prefix)/include
+    SDL_LDFLAGS := -L$(shell brew --prefix)/lib
+else
+    # Linux and sdl2-config
+    SDL_CFLAGS := $(shell sdl2-config --cflags)
+    SDL_LDFLAGS := $(shell sdl2-config --libs)
+endif
+
+sdl: CFLAGS += -DUSE_SDL $(SDL_CFLAGS)
+sdl: LDFLAGS += $(SDL_LDFLAGS) $(SDL_LIBS)
 sdl: prepare clean_objs $(TARGET)
 
 prepare:
